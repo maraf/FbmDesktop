@@ -1,0 +1,41 @@
+//---------------------------------------------------------------------------
+
+#ifndef Unit1H
+#define Unit1H
+//---------------------------------------------------------------------------
+#include <Classes.hpp>
+#include <Controls.hpp>
+#include <StdCtrls.hpp>
+#include <Forms.hpp>
+//---------------------------------------------------------------------------
+#include "Tym.h"
+#include "Zapas.h"
+//---------------------------------------------------------------------------
+class TForm1 : public TForm
+{
+__published:	// IDE-managed Components
+        TButton *Button1;
+        TButton *Button2;
+        TMemo *Memo1;
+        TMemo *Memo2;
+        TButton *Button3;
+        TLabel *Label1;
+        TLabel *Label2;
+        TLabel *Label3;
+        TMemo *Memo3;
+        TMemo *Memo4;
+        void __fastcall Button1Click(TObject *Sender);
+        void __fastcall Button2Click(TObject *Sender);
+        void __fastcall Button3Click(TObject *Sender);
+private:	// User declarations
+        Tym *Teams[2];
+        Zapas *Match;
+public:		// User declarations
+        __fastcall TForm1(TComponent* Owner);
+        void __fastcall setLineup(int iTeam);
+};
+//---------------------------------------------------------------------------
+extern PACKAGE TForm1 *Form1;
+//---------------------------------------------------------------------------
+#endif
+ 

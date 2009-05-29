@@ -1,0 +1,50 @@
+#include "ZapasList.h"
+//--------------------------------------------------------------------------------------------
+
+ZapasList::ZapasList() {
+     NumberOfMatches = 0;
+}
+//--------------------------------------------------------------------------------------------
+
+ZapasList::~ZapasList() {
+
+}
+//--------------------------------------------------------------------------------------------
+
+void ZapasList::add(Zapas *Match) {
+     *Matches[NumberOfMatches] = *Match;
+     NumberOfMatches ++;          
+}
+//--------------------------------------------------------------------------------------------
+
+void ZapasList::remove(int id) {
+     if(id < NumberOfMatches) {
+          delete *Matches[id];
+          
+          for(int i = id; i < NumberOfMatches; i ++) {
+               *Matches[i] = *Matches[i + 1];
+          }
+     }
+}
+//--------------------------------------------------------------------------------------------
+
+Zapas ZapasList::getMatch(int id) {
+     if(id < NumberOfMatches) return *Matches[id];
+}
+//--------------------------------------------------------------------------------------------
+
+Zapas ZapasList::getMatch(String sHome, String sAway) {
+     for(int i = 0; i < NumberOfMatches; i ++) {
+          if(Matches[i]->Tymy[0]->getNazevTymu() == sHome && Matches[i]->Tymy[1]->getNazevTymu() == sAway) {
+               return *Matches[i];
+          }
+     }
+     
+     return new Zapas();
+}
+//--------------------------------------------------------------------------------------------
+
+int getNumberOfMatches() {
+     return NumberOfMatches;
+}
+//--------------------------------------------------------------------------------------------

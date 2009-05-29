@@ -1,0 +1,224 @@
+//---------------------------------------------------------------------------
+#pragma hdrstop
+#include "ZapasNEW.h"
+//---------------------------------------------------------------------------
+#pragma package(smart_init)
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::Timer1Timer(TObject *Sender)
+{
+        Match[0]->Akce();
+        Match[1]->Akce();
+        Match[2]->Akce();
+        Match[3]->Akce();
+        Match[4]->Akce();
+        Match[5]->Akce();
+
+        //------Others------------------
+        if(Match[0]->getGoal() == 0 || Match[0]->getGoal() == 1){
+                MA_O1->Caption = Match[0]->Tymy[0]->getNazevTymuKr() + " - " + Match[0]->Tymy[1]->getNazevTymuKr() + " " + IntToStr(Match[0]->getGolyD()) + ":" + IntToStr(Match[0]->getGolyH());
+        }
+        if(Match[1]->getGoal() == 0 || Match[1]->getGoal() == 1){
+                MA_O2->Caption = Match[1]->Tymy[0]->getNazevTymuKr() + " - " + Match[1]->Tymy[1]->getNazevTymuKr() + " " + IntToStr(Match[1]->getGolyD()) + ":" + IntToStr(Match[1]->getGolyH());
+        }
+
+        if(Match[2]->getGoal() == 0 || Match[2]->getGoal() == 1){
+                MA_O3->Caption = Match[2]->Tymy[0]->getNazevTymuKr() + " - " + Match[2]->Tymy[1]->getNazevTymuKr() + " " + IntToStr(Match[2]->getGolyD()) + ":" + IntToStr(Match[2]->getGolyH());
+        }
+
+        if(Match[3]->getGoal() == 0 || Match[3]->getGoal() == 1){
+                MA_O4->Caption = Match[3]->Tymy[0]->getNazevTymuKr() + " - " + Match[3]->Tymy[1]->getNazevTymuKr() + " " + IntToStr(Match[3]->getGolyD()) + ":" + IntToStr(Match[3]->getGolyH());
+        }
+
+        if(Match[4]->getGoal() == 0 || Match[4]->getGoal() == 1){
+                MA_O5->Caption = Match[4]->Tymy[0]->getNazevTymuKr() + " - " + Match[4]->Tymy[1]->getNazevTymuKr() + " " + IntToStr(Match[4]->getGolyD()) + ":" + IntToStr(Match[4]->getGolyH());
+        }
+
+        if(Match[5]->getGoal() == 0 || Match[5]->getGoal() == 1){
+                MA_O6->Caption = Match[5]->Tymy[0]->getNazevTymuKr() + " - " + Match[5]->Tymy[1]->getNazevTymuKr() + " " + IntToStr(Match[5]->getGolyD()) + ":" + IntToStr(Match[5]->getGolyH());
+        }
+        //------------------------------
+
+        if(Match[iMatchIndex]->getGoal() == 0){
+                char j[10];
+                String ss = IntToStr(Match[iMatchIndex]->getCount()/2) + ".min.: ";
+                ss += IntToStr(Match[iMatchIndex]->Tymy[0]->Hraci[Match[iMatchIndex]->getStrelec()]->getCislo()) + " ";
+                ss += Match[iMatchIndex]->Tymy[0]->Hraci[Match[iMatchIndex]->getStrelec()]->getPrijmeni() + " ( ";
+                ss += IntToStr(Match[iMatchIndex]->Tymy[0]->Hraci[Match[iMatchIndex]->getAsistent()]->getCislo()) + " ";
+                ss += Match[iMatchIndex]->Tymy[0]->Hraci[Match[iMatchIndex]->getAsistent()]->getPrijmeni() + " )";
+                MA_SkoreListD->Lines->Add(ss);
+                Match[iMatchIndex]->setGoal(3);
+        }
+        if(Match[iMatchIndex]->getGoal() == 1){
+                String ss = IntToStr(Match[iMatchIndex]->getCount()/2) + ".min.: ";
+                ss += IntToStr(Match[iMatchIndex]->Tymy[1]->Hraci[Match[iMatchIndex]->getStrelec()]->getCislo()) + " ";
+                ss += Match[iMatchIndex]->Tymy[1]->Hraci[Match[iMatchIndex]->getStrelec()]->getPrijmeni() + " ( ";
+                ss += IntToStr(Match[iMatchIndex]->Tymy[1]->Hraci[Match[iMatchIndex]->getAsistent()]->getCislo()) + " ";
+                ss += Match[iMatchIndex]->Tymy[1]->Hraci[Match[iMatchIndex]->getAsistent()]->getPrijmeni() + " ) ";
+                MA_SkoreListH->Lines->Add(ss);
+                Match[iMatchIndex]->setGoal(3);
+        }
+
+        String ss = Match[iMatchIndex]->getMinuta();
+        ss += ". minuta";
+        MA_Cas->Caption = ss;
+        MA_SkoreD->Caption = Match[iMatchIndex]->getGolyD();
+        MA_SkoreH->Caption = Match[iMatchIndex]->getGolyH();
+        MA_StrelyD->Caption = Match[iMatchIndex]->getStrelyD();
+        MA_StrelyH->Caption = Match[iMatchIndex]->getStrelyH();
+
+        if(Match[iMatchIndex]->getCount() == 120){
+                Timer1->Enabled = false;
+                MA_LButton1->Caption = "Pokraeuj";
+        }
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::MA_LButton1Click(TObject *Sender)
+{
+        if(Match[0]->getCount() != 120){
+                if(Timer1->Enabled == true)
+                        Timer1->Enabled = false;
+                else
+                        Timer1->Enabled = true;
+        }
+        else{
+                for(int j = 0; j < 6; j ++) {
+                        if(Match[j]->getGolyD() == Match[j]->getGolyH()) {
+                                Match[j]->Tymy[0]->setBodyL(Match[j]->Tymy[0]->getBodyL() + 1);
+                                Match[j]->Tymy[1]->setBodyL(Match[j]->Tymy[1]->getBodyL() + 1);
+                                Match[j]->Tymy[0]->setRemizyL(Match[j]->Tymy[0]->getRemizyL() + 1);
+                                Match[j]->Tymy[1]->setRemizyL(Match[j]->Tymy[1]->getRemizyL() + 1);
+                        } else if(Match[j]->getGolyD() > Match[j]->getGolyH()) {
+                                Match[j]->Tymy[0]->setBodyL(Match[j]->Tymy[0]->getBodyL() + 3);
+                                Match[j]->Tymy[0]->setVyhryL(Match[j]->Tymy[0]->getVyhryL() + 1);
+                                Match[j]->Tymy[1]->setProhryL(Match[j]->Tymy[1]->getProhryL() + 1);
+                        } else if(Match[j]->getGolyD() < Match[j]->getGolyH()) {
+                                Match[j]->Tymy[1]->setBodyL(Match[j]->Tymy[1]->getBodyL() + 3);
+                                Match[j]->Tymy[1]->setVyhryL(Match[j]->Tymy[1]->getVyhryL() + 1);
+                                Match[j]->Tymy[0]->setProhryL(Match[j]->Tymy[0]->getProhryL() + 1);
+                        }
+                        Match[j]->Tymy[0]->setDaneGL(Match[j]->Tymy[0]->getDaneGL() + Match[j]->getGolyD());
+                        Match[j]->Tymy[0]->setObdrzeneGL(Match[j]->Tymy[0]->getObdrzeneGL() + Match[j]->getGolyH());
+                        Match[j]->Tymy[0]->setDaneSL(Match[j]->Tymy[0]->getDaneSL() + Match[j]->getStrelyD());
+                        Match[j]->Tymy[0]->setObdrzeneSL(Match[j]->Tymy[0]->getObdrzeneSL() + Match[j]->getStrelyH());
+                        Match[j]->Tymy[1]->setDaneGL(Match[j]->Tymy[1]->getDaneGL() + Match[j]->getGolyH());     
+                        Match[j]->Tymy[1]->setObdrzeneGL(Match[j]->Tymy[1]->getObdrzeneGL() + Match[j]->getGolyD());
+                        Match[j]->Tymy[1]->setDaneSL(Match[j]->Tymy[1]->getDaneSL() + Match[j]->getStrelyH());
+                        Match[j]->Tymy[1]->setObdrzeneSL(Match[j]->Tymy[1]->getObdrzeneSL() + Match[j]->getStrelyD());
+                        for(int i = 0; i < Match[j]->Tymy[0]->getPocetLajn() * 5 + 1; i ++){
+                                Match[j]->Tymy[0]->Hraci[i]->setZapasyL(Match[j]->Tymy[0]->Hraci[i]->getZapasyL() + 1);
+                        }
+
+                        for(int i = 0; i < Match[j]->Tymy[1]->getPocetLajn() * 5 + 1; i ++){
+                                Match[j]->Tymy[1]->Hraci[i]->setZapasyL(Match[j]->Tymy[1]->Hraci[i]->getZapasyL() + 1);
+                        }
+                }
+                MA_SkoreListD->Clear();
+                MA_SkoreListH->Clear();
+
+                MA->Visible = false;
+                HO->Visible = true;
+
+                HO_B_Game->Enabled = false;
+                HO_B_NextWeek->Enabled = true;
+                //if(AktKolo > 4) HO_B_NextWeek->Enabled = false;
+                HO_B_Table->Enabled = true;
+
+                int limit = 0;
+                for(int i = 0; i < 12; i ++) {
+                        for(int j = 0; j < Teams[i]->getPocetHracu(); j ++) {
+                                limit = Teams[i]->Hraci[j]->getVek() * 5 * Teams[i]->Hraci[j]->getFS() * Teams[i]->Hraci[j]->getFS() / 1000;
+                                if(Teams[i]->Hraci[j]->getFSpom() >= limit) {
+                                        if(Teams[i]->Hraci[j]->getFS() > 100)
+                                                Teams[i]->Hraci[j]->setFS(Teams[i]->Hraci[j]->getFS() + 1);
+                                        Teams[i]->Hraci[j]->setFSpom(Teams[i]->Hraci[j]->getFSpom() - limit);
+                                }
+                                limit = Teams[i]->Hraci[j]->getVek() * 30 * Teams[i]->Hraci[j]->getTS() / 100;
+                                if(Teams[i]->Hraci[j]->getTSpom() >= limit) {
+                                        if(Teams[i]->Hraci[j]->getTS() > 100)
+                                                Teams[i]->Hraci[j]->setTS(Teams[i]->Hraci[j]->getTS() + 1);
+                                        Teams[i]->Hraci[j]->setTSpom(Teams[i]->Hraci[j]->getTSpom() - limit);
+                                }
+                                limit = Teams[i]->Hraci[j]->getVek() * 10;
+                                if(Teams[i]->Hraci[j]->getZSpom() >= limit) {
+                                        if(Teams[i]->Hraci[j]->getZS() > 100)
+                                                Teams[i]->Hraci[j]->setZS(Teams[i]->Hraci[j]->getZS() + 1);
+                                        Teams[i]->Hraci[j]->setZSpom(Teams[i]->Hraci[j]->getZSpom() - limit);
+                                }
+                        }
+                }
+        }
+}
+//---------------------------------------------------------------------------
+
+
+void __fastcall TForm1::MA_SD_LClick(TObject *Sender)
+{
+        if(MA_LP_D->Visible == false){
+                String s1, s2, s3, s4, s5, s6, s7;
+                for(int i = 0; i < Teams[d]->getPocetLajn() * 5 + 1; i ++){
+                        s1 += "\n";
+                        s1 += Teams[d]->Hraci[i]->getCislo();
+                        s2 += "\n";
+                        s2 += Teams[d]->Hraci[i]->getPrijmeni();
+                        s3 += "\n";
+                        s3 += Teams[d]->Hraci[i]->getFS();
+                        s4 += "\n";
+                        s4 += Teams[d]->Hraci[i]->getTS();
+                        s5 += "\n";
+                        s5 += Teams[d]->Hraci[i]->getZS();
+                        s6 += "\n";
+                        s6 += Teams[d]->Hraci[i]->getEnergie();
+                        s7 += "\n";
+                        s7 += Teams[d]->Hraci[i]->getSestava();
+                }
+                MA_LP_DL1->Caption = s1;
+                MA_LP_DL2->Caption = s2;
+                MA_LP_DL3->Caption = s3;
+                MA_LP_DL4->Caption = s4;
+                MA_LP_DL5->Caption = s5;
+                MA_LP_DL6->Caption = s6;
+                MA_LP_DL7->Caption = s7;
+                MA_LP_D->Visible = true;
+        }
+        else{
+                MA_LP_D->Visible = false;
+        }
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::MA_SH_LClick(TObject *Sender)
+{
+        if(MA_LP_H->Visible == false){
+                String s1, s2, s3, s4, s5, s6, s7;
+                for(int i = 0; i < Teams[h]->getPocetLajn() * 5 + 1; i ++){
+                        s1 += "\n";
+                        s1 += Teams[h]->Hraci[i]->getCislo();
+                        s2 += "\n";
+                        s2 += Teams[h]->Hraci[i]->getPrijmeni();
+                        s3 += "\n";
+                        s3 += Teams[h]->Hraci[i]->getFS();
+                        s4 += "\n";
+                        s4 += Teams[h]->Hraci[i]->getTS();
+                        s5 += "\n";
+                        s5 += Teams[h]->Hraci[i]->getZS();
+                        s6 += "\n";
+                        s6 += Teams[h]->Hraci[i]->getEnergie();
+                        s7 += "\n";
+                        s7 += Teams[h]->Hraci[i]->getSestava();
+                }
+                MA_LP_HL1->Caption = s1;
+                MA_LP_HL2->Caption = s2;
+                MA_LP_HL3->Caption = s3;
+                MA_LP_HL4->Caption = s4;
+                MA_LP_HL5->Caption = s5;
+                MA_LP_HL6->Caption = s6;
+                MA_LP_HL7->Caption = s7;
+                MA_LP_H->Visible = true;
+        }
+        else{
+                MA_LP_H->Visible = false;
+        }
+}
+//---------------------------------------------------------------------------
