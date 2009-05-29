@@ -1,0 +1,83 @@
+//---------------------------------------------------------------------------
+
+#ifndef Unit1H
+#define Unit1H
+//---------------------------------------------------------------------------
+#include <Classes.hpp>
+#include <Controls.hpp>
+#include <StdCtrls.hpp>
+#include <Forms.hpp>
+
+#include "Tym.h"
+#include <ExtCtrls.hpp>
+//---------------------------------------------------------------------------
+class TForm1 : public TForm
+{
+__published:	// IDE-managed Components
+        TButton *Button1;
+        TButton *Button2;
+        TButton *Button3;
+        TLabel *Label1;
+        TLabel *Label2;
+        TLabel *Label3;
+        TLabel *Label4;
+        TLabel *Label5;
+        TTimer *Timer1;
+        TLabel *Label6;
+        TLabel *Label7;
+        TLabel *Label8;
+        TButton *Button4;
+        TButton *Button5;
+        TMemo *Memo1;
+        TMemo *Memo2;
+        TLabel *Label9;
+        TMemo *Memo3;
+        TMemo *Memo4;
+        TGroupBox *GroupBox1;
+        TLabel *Label13;
+        TLabel *Label12;
+        TLabel *Label14;
+        TLabel *Label15;
+        TLabel *Label10;
+        TLabel *Label11;
+        TGroupBox *GroupBox2;
+        TGroupBox *GroupBox3;
+        TGroupBox *GroupBox4;
+        TButton *Button6;
+        TGroupBox *GroupBox5;
+        TLabel *Label16;
+        void __fastcall FormDestroy(TObject *Sender);
+        void __fastcall Button1Click(TObject *Sender);
+        void __fastcall Button2Click(TObject *Sender);
+        void __fastcall Button3Click(TObject *Sender);
+        void __fastcall Timer1Timer(TObject *Sender);
+        void __fastcall Button4Click(TObject *Sender);
+        void __fastcall Button5Click(TObject *Sender);
+        void __fastcall Button6Click(TObject *Sender);
+private:	// User declarations
+        Tym *Tymy[2];        // instance dvou tymu ucastnicich se zapasu
+        int iCount;          // citac minut
+        int iCelkoveA[2];    // celkove honoty FS, TS a ZS
+        int iCelkoveB[2];    // pro dve lajny obou tymy
+        int iGolyA;          // goly vstrelene
+        int iGolyB;          // tymy A a B
+        int iStrelyA;        // pocet strel za zapas
+        int iStrelyB;        // obou tymu
+        int iUtok;           // vygenerovane cislo fci rand(), od o
+        int iPomer;          // do 100, pomer je pocet cisel pro skorovani
+        int iLine;           // ktera lajna hraje, 0 .. 1.lajna, 1 .. 2.lajna
+        int iUtoky[4];       // utoky jednotlivych lajn obou tymy
+        bool bUtoci[2];      // ktery tym v dane minute utoci
+        int iPrumHrA[2];     // prumerne hodnoty FS, TS a ZS
+        int iPrumHrB[2];     // obou lajn v obou tymu
+        int iGolmanA;        // hodnoty FS, TS a ZS
+        int iGolmanB;        // obou golmanu obou tymu
+        int iNavsteva;       // navsteva na zapase
+public:		// User declarations
+        __fastcall TForm1(TComponent* Owner);
+};
+//---------------------------------------------------------------------------
+extern PACKAGE TForm1 *Form1;
+//---------------------------------------------------------------------------
+#endif
+ 

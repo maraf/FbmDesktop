@@ -1,0 +1,227 @@
+//---------------------------------------------------------------------------
+#pragma hdrstop
+#include "ZapasNEW.h"
+//---------------------------------------------------------------------------
+#pragma package(smart_init)
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::SF_B_BackClick(TObject *Sender)
+{
+        SF->Visible = false;
+        HO->Visible = true;
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::setColorsSF()
+{
+        //TColor RGB1;
+        //TColor RGB2;
+
+        //RGB1 = Teams[Manager->getKlub()]->getRGB1();
+        //RGB2 = Teams[Manager->getKlub()]->getRGB2();
+}
+//---------------------------------------------------------------------------
+void __fastcall TForm1::setPlayersSF()
+{
+        SF_LB_Players->Clear();
+
+        String s1 = "";
+        String s2 = "";
+        int delka;
+        for(int i = 0; i < Teams[Manager->getKlub()]->getPocetHracu(); i ++) {
+                s1 = (String)Teams[Manager->getKlub()]->Hraci[i]->getPost() + " ";
+
+                //s1 = "";
+                delka = 2;
+                s2 = (String)Teams[Manager->getKlub()]->Hraci[i]->getCislo();
+                delka -= s2.Length();
+                for(int j = delka; j > 0; j --) s1 += " ";
+                s1 += s2 + " ";
+
+                delka = 12;
+                s2 = (String)Teams[Manager->getKlub()]->Hraci[i]->getJmeno();
+                delka -= s2.Length();
+                s1 += s2;
+                for(int j = delka; j >= 0; j --) s1 += " ";
+
+                delka = 13;
+                s2 = (String)Teams[Manager->getKlub()]->Hraci[i]->getPrijmeni();
+                delka -= s2.Length();
+                s1 += s2;
+                for(int j = delka; j >= 0; j --) s1 += " ";
+
+                s2 = (String)Teams[Manager->getKlub()]->Hraci[i]->getVek() + " ";
+                s1 += s2;
+                s2 = (String)Teams[Manager->getKlub()]->Hraci[i]->getFS() + " ";
+                s1 += s2;
+                s2 = (String)Teams[Manager->getKlub()]->Hraci[i]->getTS() + " ";
+                s1 += s2;
+                s2 = (String)Teams[Manager->getKlub()]->Hraci[i]->getZS() + " ";
+                s1 += s2;
+                s2 = (String)Teams[Manager->getKlub()]->Hraci[i]->getEnergie();
+                s1 += s2;
+
+                SF_LB_Players->Items->Add(s1);
+        }
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::SF_L_PostClick(TObject *Sender)
+{
+        SF_LB_Players->Clear();
+
+        Teams[Manager->getKlub()]->setridHrace('P', true);
+
+        setPlayersSF();
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::SF_L_NumberClick(TObject *Sender)
+{
+        SF_LB_Players->Clear();
+
+        Teams[Manager->getKlub()]->setridHrace('C', true);
+
+        setPlayersSF();
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::SF_L_NameClick(TObject *Sender)
+{
+        SF_LB_Players->Clear();
+
+        Teams[Manager->getKlub()]->setridHrace('J', true);
+
+        setPlayersSF();
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::SF_L_AgeClick(TObject *Sender)
+{
+        SF_LB_Players->Clear();
+
+        Teams[Manager->getKlub()]->setridHrace('V', true);
+
+        setPlayersSF();
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::SF_L_FSClick(TObject *Sender)
+{
+        SF_LB_Players->Clear();
+
+        Teams[Manager->getKlub()]->setridHrace('F', true);
+
+        setPlayersSF();
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::SF_L_TSClick(TObject *Sender)
+{
+        SF_LB_Players->Clear();
+
+        Teams[Manager->getKlub()]->setridHrace('T', true);
+
+        setPlayersSF();
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::SF_L_ZSClick(TObject *Sender)
+{
+        SF_LB_Players->Clear();
+
+        Teams[Manager->getKlub()]->setridHrace('Z', true);
+
+        setPlayersSF();
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::SF_L_EnClick(TObject *Sender)
+{
+        SF_LB_Players->Clear();
+
+        Teams[Manager->getKlub()]->setridHrace('E', true);
+
+        setPlayersSF();
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::SF_L_PostDblClick(TObject *Sender)
+{
+        SF_LB_Players->Clear();
+
+        Teams[Manager->getKlub()]->setridHrace('P', false);
+
+        setPlayersSF();
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::SF_L_NumberDblClick(TObject *Sender)
+{
+        SF_LB_Players->Clear();
+
+        Teams[Manager->getKlub()]->setridHrace('C', false);
+
+        setPlayersSF();
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::SF_L_NameDblClick(TObject *Sender)
+{
+        SF_LB_Players->Clear();
+
+        Teams[Manager->getKlub()]->setridHrace('J', false);
+
+        setPlayersSF();
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::SF_L_AgeDblClick(TObject *Sender)
+{
+        SF_LB_Players->Clear();
+
+        Teams[Manager->getKlub()]->setridHrace('V', false);
+
+        setPlayersSF();
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::SF_L_FSDblClick(TObject *Sender)
+{
+        SF_LB_Players->Clear();
+
+        Teams[Manager->getKlub()]->setridHrace('F', false);
+
+        setPlayersSF();
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::SF_L_TSDblClick(TObject *Sender)
+{
+        SF_LB_Players->Clear();
+
+        Teams[Manager->getKlub()]->setridHrace('T', false);
+
+        setPlayersSF();
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::SF_L_ZSDblClick(TObject *Sender)
+{
+        SF_LB_Players->Clear();
+
+        Teams[Manager->getKlub()]->setridHrace('Z', false);
+
+        setPlayersSF();
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::SF_L_EnDblClick(TObject *Sender)
+{
+        SF_LB_Players->Clear();
+
+        Teams[Manager->getKlub()]->setridHrace('E', false);
+
+        setPlayersSF();
+}
+//---------------------------------------------------------------------------

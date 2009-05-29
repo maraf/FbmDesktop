@@ -1,0 +1,71 @@
+//---------------------------------------------------------------------------
+
+#include <vcl.h>
+#pragma hdrstop
+
+#include "Unit1.h"
+#include "Tym.h"
+//---------------------------------------------------------------------------
+#pragma package(smart_init)
+#pragma resource "*.dfm"
+TForm1 *Form1;
+//---------------------------------------------------------------------------
+__fastcall TForm1::TForm1(TComponent* Owner)
+        : TForm(Owner)
+{
+        Tym *muj[5];
+        muj[0] = new Tym();
+        muj[0] = new Tym();
+
+        muj[0]->nactiHrace("tymA.txt");
+
+        muj[0]->Hraci[0]->setSestava(1);
+        muj[0]->Hraci[4]->setSestava(1);
+        muj[0]->Hraci[2]->setSestava(1);
+        muj[0]->Hraci[10]->setSestava(1);
+        muj[0]->Hraci[7]->setSestava(1);
+        muj[0]->Hraci[8]->setSestava(1);
+                                        
+        muj[0]->Hraci[12]->setSestava(2);
+        muj[0]->Hraci[3]->setSestava(2);
+        muj[0]->Hraci[5]->setSestava(2);
+        muj[0]->Hraci[9]->setSestava(2);
+        muj[0]->Hraci[11]->setSestava(2);
+
+        muj[0]->setridHrace('L', true);
+
+        muj[0]->ulozHrace("sestava.txt");
+//        muj->setPocetHracu(11);
+
+//        muj->setridHrace('C', true);
+//        muj->ulozHrace("tymCisla.txt");
+//        muj->setridHrace('J', true);
+//        muj->ulozHrace("tymJmena.txt");
+//        muj->setridHrace('V', false);
+//        muj->ulozHrace("tymVek.txt");
+//        muj->setridHrace('F', false);
+//        muj->ulozHrace("tymFS.txt");
+//        muj->setridHrace('T', true);
+//        muj->ulozHrace("tymTS.txt");
+//        muj->setridHrace('Z', true);
+//        muj->ulozHrace("tymZS.txt");
+//        muj->setridHrace('S', false);
+//        muj->ulozHrace("tymSmlouva.txt");
+
+//        int i = 0;
+//        int iCelkove = 0;
+
+//        while(i < muj[0]->getPocetHracu()){
+//                iCelkove += muj[0]->Hraci[i]->getZS();
+//                i ++;
+//        }
+
+        Label1->Caption = muj[0]->getCelkoveFS();
+        Label2->Caption = muj[0]->getCelkoveTS();
+        Label3->Caption = muj[0]->getCelkoveZS();
+
+        delete muj[0], muj[1];
+
+}
+//---------------------------------------------------------------------------
+ 

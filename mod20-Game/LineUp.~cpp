@@ -1,0 +1,175 @@
+//---------------------------------------------------------------------------
+#pragma hdrstop
+#include "ZapasNEW.h"
+//---------------------------------------------------------------------------
+#pragma package(smart_init)
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::LP_P_LClick(TObject *Sender)
+{
+        Teams[t]->setridHrace('P', true);
+
+        setPlayersLP();
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::LP_C_LClick(TObject *Sender)
+{
+        Teams[t]->setridHrace('C', true);
+
+        setPlayersLP();
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::LP_J_LClick(TObject *Sender)
+{
+        Teams[t]->setridHrace('J', true);
+
+        setPlayersLP();
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::LP_V_LClick(TObject *Sender)
+{
+        Teams[t]->setridHrace('V', true);
+
+        setPlayersLP();
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::LP_F_LClick(TObject *Sender)
+{
+        Teams[t]->setridHrace('F', false);
+
+        setPlayersLP();
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::LP_T_LClick(TObject *Sender)
+{
+        Teams[t]->setridHrace('T', false);
+
+        setPlayersLP();
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::LP_Z_LClick(TObject *Sender)
+{
+        Teams[t]->setridHrace('Z', false);
+
+        setPlayersLP();
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::LP_L_LClick(TObject *Sender)
+{
+        Teams[t]->setridHrace('L', true);
+
+        setPlayersLP();
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::LP_B_TrainingClick(TObject *Sender)
+{
+        Teams[Manager->getKlub()]->setTraining(LP_CB_Training->ItemIndex);
+        switch(LP_CB_TrainingIntensity->ItemIndex) {
+                case 0: Teams[Manager->getKlub()]->setTrainingIntensity(0); break;
+                case 1: Teams[Manager->getKlub()]->setTrainingIntensity(0.1); break;
+                case 2: Teams[Manager->getKlub()]->setTrainingIntensity(0.2); break;
+                case 3: Teams[Manager->getKlub()]->setTrainingIntensity(0.3); break;
+                case 4: Teams[Manager->getKlub()]->setTrainingIntensity(0.4); break;
+                case 5: Teams[Manager->getKlub()]->setTrainingIntensity(0.5); break;
+                case 6: Teams[Manager->getKlub()]->setTrainingIntensity(0.6); break;
+                case 7: Teams[Manager->getKlub()]->setTrainingIntensity(0.7); break;
+                case 8: Teams[Manager->getKlub()]->setTrainingIntensity(0.8); break;
+                case 9: Teams[Manager->getKlub()]->setTrainingIntensity(0.9); break;
+                case 10: Teams[Manager->getKlub()]->setTrainingIntensity(1); break;
+        }
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::LP_B_KickClick(TObject *Sender)
+{
+        if(LP_CB_Players->ItemIndex != -1) {
+                if(!(Teams[Manager->getKlub()]->getCountOfGoalkeepers() == 1 && Teams[Manager->getKlub()]->Hraci[LP_CB_Players->ItemIndex]->getPost() == 'G') && Teams[Manager->getKlub()]->getPocetHracu() > 12) {
+                        Teams[Manager->getKlub()]->setridHrace('P', true);
+                        Teams[Manager->getKlub()]->deletePlayerAt(LP_CB_Players->ItemIndex);
+                        LP_CB_Players->DeleteSelected();
+                        setPlayersLP();
+                }
+        }
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::ZpetClick(TObject *Sender)
+{
+        LP_Buy->Clear();
+        LP->Visible = false;
+        if(t != Manager->getKlub()) TE->Visible = true;
+        else HO->Visible = true;
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::LP_P_LDblClick(TObject *Sender)
+{
+        Teams[t]->setridHrace('P', false);
+
+        setPlayersLP();
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::LP_C_LDblClick(TObject *Sender)
+{
+        Teams[t]->setridHrace('C', false);
+
+        setPlayersLP();
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::LP_J_LDblClick(TObject *Sender)
+{
+        Teams[t]->setridHrace('J', false);
+
+        setPlayersLP();
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::LP_V_LDblClick(TObject *Sender)
+{
+        Teams[t]->setridHrace('V', false);
+
+        setPlayersLP();
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::LP_F_LDblClick(TObject *Sender)
+{
+        Teams[t]->setridHrace('F', true);
+
+        setPlayersLP();
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::LP_T_LDblClick(TObject *Sender)
+{
+        Teams[t]->setridHrace('T', true);
+
+        setPlayersLP();
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::LP_Z_LDblClick(TObject *Sender)
+{
+        Teams[t]->setridHrace('Z', true);
+
+        setPlayersLP();
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::LP_L_LDblClick(TObject *Sender)
+{
+        Teams[t]->setridHrace('L', false);
+
+        setPlayersLP();
+}
+//---------------------------------------------------------------------------

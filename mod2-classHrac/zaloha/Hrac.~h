@@ -1,0 +1,54 @@
+
+#ifndef HracH
+#define HracH
+
+#include <iomanip>
+#include <ios>
+#include <iostream>
+#include <StdCtrls.hpp>
+
+class Hrac{
+
+      private:
+              char cPost;
+              String cJmeno;
+              String cJmeno2;
+              String cPrijmeni;
+              int iVek;
+              int iRychlost;
+              int iTechnika;
+              int iZkusenost;
+              int iSmlouva;
+      public:
+              Hrac();
+              Hrac(char Post, String Jmeno, int Vek, int Rychlost, int Technika, int iZkusenost, int Smlouva);
+              ~Hrac();
+              
+              void setPost(char Post);
+              void setJmeno(String Jmeno);
+              void setJmeno2(String Jmeno2);
+              void setPrijmeni(String Prijmeni);
+              void setVek(int Vek);
+              void setVek(char *Vek);
+              void setRychlost(int Rychlost);
+              void setRychlost(char *Rychlost);
+              void setTechnika(int Technika);
+              void setTechnika(char *Technika);
+              void setZkusenost(int Zkusenost);
+              void setZkusenost(char *Zkusenost);
+              void setSmlouva(int Smlouva);
+              void setSmlouva(char *Smlouva);
+              
+              char getPost();
+              String getJmeno();
+              String getJmeno2();
+              String getPrijmeni();
+              int getVek();
+              int getRychlost();
+              int getTechnika();
+              int getZKusenost();
+              int getSmlouva();
+
+};
+
+#endif

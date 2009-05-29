@@ -1,0 +1,214 @@
+#include "Kalendar.h"
+//--------------------------------------------------------------------------------------------
+
+Kalendar::Kalendar(String fileCalendar, String fileSchedules) {
+     inicializace(fileCalendar, 2007, 0, -1);
+     loadSchedules(fileSchedules);
+}
+//--------------------------------------------------------------------------------------------
+
+Kalendar::Kalendar(String fileCalendar, String fileSchedules, int iYear, int iThisWeek, int iThisRound) {
+     inicializace(fileCalendar, iYear, iThisWeek, iThisRound);
+     loadSchedules(fileSchedules);
+}
+//--------------------------------------------------------------------------------------------
+
+Kalendar::~Kalendar() {
+
+}
+//--------------------------------------------------------------------------------------------
+
+void Kalendar::inicializace(String fileName, int iYear, int iThisWeek, int iThisRound) {
+     for(int i = 0; i < 22; i ++)
+          for(int j = 0; j < 2; j ++)
+               for(int k = 0; k < 6; k ++)
+                    Schedules[i][j][k] = 0;
+
+     Year = iYear;
+     ThisWeek = iThisWeek;
+     ThisRound = iThisRound;
+
+     FILE *fTeam;
+     int i = 0;
+     char c[1];
+
+     char cName[40];
+     sprintf(cName, "%s", fileName);
+
+     fTeam = fopen(cName,"r");
+
+     while((c[0] = getc(fTeam)) != EOF) {
+          if(c[0] == '-') {
+               i ++;
+          } else {
+               //Calendar[i] = atoi(c);
+               if(c[0] == '0') Calendar[i] = 0;
+               else if(c[0] == '1') Calendar[i] = 1;
+               else if(c[0] == '2') Calendar[i] = 2;
+               else if(c[0] == '3') Calendar[i] = 3;
+               else if(c[0] == '4') Calendar[i] = 4;
+          }
+     }
+
+     fclose(fTeam);
+
+     int iThisWeekValue = Calendar[ThisWeek];
+     Transfer = false;
+     League = false;
+     Holiday = false;
+     if(iThisWeekValue >= 4) {
+          Holiday = true;
+          iThisWeekValue -= 4;
+     }
+     if(iThisWeekValue >= 2) {
+          Transfer = true;
+          iThisWeekValue -= 2;
+     }
+     if(iThisWeekValue >= 1) {
+          League = true;
+          iThisWeekValue -= 1;
+     }
+}
+//--------------------------------------------------------------------------------------------
+
+void Kalendar::loadSchedules(String fileName) {
+     FILE *fTeam;
+     int i = 0;
+     int j = 0;
+     int k = 0;
+     int id = 0;
+     char c[1];
+
+     char cName[40];
+     sprintf(cName, "%s", fileName);
+
+     fTeam = fopen(cName,"r");
+
+     while((c[0] = getc(fTeam)) != EOF) {
+          if(c[0] == ':') {
+               k ++;
+          } else if(c[0] == '-') {
+               id ++;
+               Schedules[i][j][2] = id;
+               j ++;
+               k = 0;
+          } else if(c[0] == ';') {
+               id ++;
+               Schedules[i][j][2] = id;
+               i ++;
+               j = 0;
+               k = 0;
+          } else {
+               if(c[0] == '0') Schedules[i][j][k] = 0;
+               else if(c[0] == '1') Schedules[i][j][k] = 1;
+               else if(c[0] == '2') Schedules[i][j][k] = 2;
+               else if(c[0] == '3') Schedules[i][j][k] = 3;
+               else if(c[0] == '4') Schedules[i][j][k] = 4;
+               else if(c[0] == '5') Schedules[i][j][k] = 5;
+               else if(c[0] == '6') Schedules[i][j][k] = 6;
+               else if(c[0] == '7') Schedules[i][j][k] = 7;
+               else if(c[0] == '8') Schedules[i][j][k] = 8;
+               else if(c[0] == '9') Schedules[i][j][k] = 9;
+               else if(c[0] == 'a') Schedules[i][j][k] = 10;
+               else if(c[0] == 'b') Schedules[i][j][k] = 11;
+          }
+     }
+
+     for(i = 0; i < 11; i ++) {
+          for(j = 0; j < 6; j ++) {
+               Schedules[i + 11][j][0] = Schedules[i][j][1];
+               Schedules[i + 11][j][1] = Schedules[i][j][0];
+          }
+     }
+
+     fclose(fTeam);
+}
+//--------------------------------------------------------------------------------------------
+
+void Kalendar::nextSeason() {
+     ThisWeek = 0;
+     ThisRound = -1;
+}
+//--------------------------------------------------------------------------------------------
+
+void Kalendar::nextDay() {
+     ThisWeek ++;
+     if(ThisWeek == 46) Year ++;
+     int iThisWeekValue = Calendar[ThisWeek];
+     Transfer = false;
+     League = false;
+     Holiday = false;
+     if(iThisWeekValue >= 4) {
+          Holiday = true;
+          iThisWeekValue -= 4;
+     }
+     if(iThisWeekValue >= 2) {
+          Transfer = true;
+          iThisWeekValue -= 2;
+     }
+     if(iThisWeekValue >= 1) {
+          ThisRound ++;
+          League = true;
+          iThisWeekValue -= 1;
+     }
+}
+//--------------------------------------------------------------------------------------------
+
+int Kalendar::getSchedule(int match, bool home) {
+     if(ThisRound != -1) {
+          if(home) return Schedules[ThisRound][match][0];
+          else return Schedules[ThisRound][match][1];
+     } else return(-1);
+}
+//--------------------------------------------------------------------------------------------
+
+int Kalendar::getSchedule(int round, int match, bool home) {
+     if(ThisRound != -1) {
+          if(home) return Schedules[round][match][0];
+          else return Schedules[round][match][1];
+     } else return(-1);
+}
+//--------------------------------------------------------------------------------------------
+
+int Kalendar::getMatchId(int match) {
+     return Schedules[ThisRound][match][2];
+}
+//--------------------------------------------------------------------------------------------
+
+int Kalendar::getMatchId(int round, int match) {
+     return Schedules[round][match][2];
+}
+//--------------------------------------------------------------------------------------------
+
+int Kalendar::getWeek() {
+     if(ThisWeek % 2)
+          return(ThisWeek / 2 + 1);
+     else
+          return(ThisWeek / 2 + 1);
+}
+//--------------------------------------------------------------------------------------------
+
+int Kalendar::getRound() {
+     return ThisRound;
+}
+//--------------------------------------------------------------------------------------------
+
+int Kalendar::getYear() {
+    return Year;
+}
+//--------------------------------------------------------------------------------------------
+
+bool Kalendar::isLeague() {
+     return League;
+}
+//--------------------------------------------------------------------------------------------
+
+bool Kalendar::isTransferPeriod() {
+     return Transfer;
+}
+//--------------------------------------------------------------------------------------------
+
+bool Kalendar::isHoliday() {
+     return Holiday;
+}
+//--------------------------------------------------------------------------------------------
